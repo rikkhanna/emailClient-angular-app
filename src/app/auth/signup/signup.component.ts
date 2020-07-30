@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatchPassword } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -33,9 +34,22 @@ export class SignupComponent implements OnInit {
   {
     validators: [this.matchPassword.validate]
   })
-  constructor(private matchPassword: MatchPassword,private uniqueUsername: UniqueUsername) { }
+  constructor(
+    private matchPassword: MatchPassword,
+    private uniqueUsername: UniqueUsername,
+    private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
   }
 
+  onSignup(){
+    if(this.authForm.invalid){
+      return;
+    }
+    //non of the code inside an observable will be executed until we subscribe to it.
+    this.authService.signup(this.authForm.value).subscribe(value => {
+      console.log(value.username);
+    })
+  }
 }
