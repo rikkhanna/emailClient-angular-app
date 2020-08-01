@@ -50,7 +50,14 @@ export class SignupComponent implements OnInit {
     //non of the code inside an observable will be executed until we subscribe to it.
     this.authService.signup(this.authForm.value).subscribe({
       next: (response) => {
-        console.log(this);
+        //Navigate to some other route
+      },
+      error: err => {
+        if(!err.status){
+          this.authForm.setErrors({noConnection: true})
+        }else{
+          this.authForm.setErrors({unkownError: true})
+        }
       }
     })
   }
