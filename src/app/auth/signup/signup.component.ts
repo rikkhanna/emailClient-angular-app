@@ -48,8 +48,10 @@ export class SignupComponent implements OnInit {
       return;
     }
     //non of the code inside an observable will be executed until we subscribe to it.
-    this.authService.signup(this.authForm.value).subscribe(value => {
-      console.log(value.username);
+    this.authService.signup(this.authForm.value).subscribe({
+      next: (response) => {
+        console.log(this);
+      }
     })
   }
 }
