@@ -3,10 +3,11 @@ import {
     HttpEvent,
     HttpInterceptor,
     HttpHandler,
-    HttpRequest
+    HttpRequest,
+    HttpEventType
 } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,16 @@ export class AuthHttpInterceptor implements HttpInterceptor{
             withCredentials: true
         })
         return next.handle(modifiedReq).pipe(
-            tap((value)=>{ console.log(value)})
+            // filter(value => value.type === HttpEventType.Sent), /*  just another way to check */
+            tap(
+                (value) => { 
+                    if(value.type === HttpEventType.Sent){
+                        console.log('Request was sent to server');
+                    }
+                    if(value.type === HttpEventType.Response){
+                        console.log('Got a Response from the API', value)
+                    }
+                })
         ); //passing req to next interceptor
     }
 }
