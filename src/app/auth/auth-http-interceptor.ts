@@ -6,6 +6,7 @@ import {
     HttpRequest
 } from '@angular/common/http';
 import { Observable } from "rxjs";
+import { tap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,8 @@ export class AuthHttpInterceptor implements HttpInterceptor{
         const modifiedReq = req.clone({
             withCredentials: true
         })
-        return next.handle(modifiedReq); //passing req to next interceptor
+        return next.handle(modifiedReq).pipe(
+            tap((value)=>{ console.log(value)})
+        ); //passing req to next interceptor
     }
 }
