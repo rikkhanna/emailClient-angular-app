@@ -11,7 +11,9 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class AuthHttpInterceptor implements HttpInterceptor{
+    //req: to be sent off to some remote server
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        throw new Error("Method not implemented.");
+        console.log(req);
+        return next.handle(req);
     }
 }
