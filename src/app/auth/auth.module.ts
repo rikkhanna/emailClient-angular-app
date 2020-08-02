@@ -7,8 +7,9 @@ import { SignupComponent } from './signup/signup.component';
 
 import { ReactiveFormsModule} from '@angular/forms';
 import { InputComponent } from '../shared/input/input.component';
+import { SignoutComponent } from './signout/signout.component';
 @NgModule({
-  declarations: [SigninComponent, SignupComponent, InputComponent],
+  declarations: [SigninComponent, SignupComponent, InputComponent, SignoutComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
